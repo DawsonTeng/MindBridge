@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBridge | Understanding & Nurturing Mental Health</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Fraunces (for warm, calming editorial headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for warm, clean, accessible iconography -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Fraunces', 'serif'],
+                    },
+                    colors: {
+                        cream: {
+                            50: '#FDFCFB',
+                            100: '#F9F6F0',
+                            200: '#EFECE6',
+                        },
+                        sage: {
+                            50: '#F3F7F4',
+                            100: '#E3ECE5',
+                            200: '#C6D9CB',
+                            500: '#588163',
+                            600: '#466A50',
+                            700: '#37543F',
+                            900: '#1F3124',
+                        },
+                        slateblue: {
+                            50: '#F2F5F8',
+                            100: '#E1E8EF',
+                            500: '#4A6B82',
+                            700: '#2E4556',
+                        },
+                        terracotta: {
+                            50: '#FCF5F2',
+                            100: '#F8E7DF',
+                            500: '#C86D51',
+                            600: '#B0573C',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cream-100 text-slate-800 font-sans antialiased selection:bg-sage-200 selection:text-sage-900">
+
+    <!-- Top Crisis Support Banner -->
+    <div class="bg-sage-900 text-cream-50 px-4 py-2.5 text-sm">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-heart text-terracotta-500 text-lg shrink-0"></i>
+                <span>You don't have to carry everything alone. Free, confidential support is available 24/7.</span>
+            </div>
+            <button onclick="openCrisisModal()" class="inline-flex items-center gap-1.5 bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold px-3.5 py-1.5 rounded-full transition shadow-sm text-xs sm:text-sm shrink-0 cursor-pointer">
+                <i class="ph-bold ph-phone-call"></i>
+                <span>Need Immediate Help?</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <header class="sticky top-0 z-40 bg-cream-50/90 backdrop-blur-md border-b border-cream-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-xl bg-sage-600 text-white flex items-center justify-center shadow-sm group-hover:bg-sage-700 transition">
+                    <i class="ph-fill ph-plant text-xl"></i>
+                </div>
+                <span class="font-serif font-bold text-xl text-sage-900 tracking-tight">MindBridge</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+                <a href="#what-is-it" class="hover:text-sage-700 transition py-2">What It Is</a>
+                <a href="#influences" class="hover:text-sage-700 transition py-2">What Influences It</a>
+                <a href="#recognizing-signs" class="hover:text-sage-700 transition py-2">Recognizing Signs</a>
+                <a href="#toolkit" class="hover:text-sage-700 transition py-2">Calm Toolkit</a>
+                <a href="#knowledge-quiz" class="bg-sage-100 text-sage-800 hover:bg-sage-200 px-4 py-2 rounded-full font-semibold transition">
+                    Knowledge Quiz
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-xl text-slate-700 hover:bg-cream-200 transition">
+                <i class="ph ph-list text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream-50 border-b border-cream-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="#what-is-it" class="mobile-link block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-sage-50 font-medium">What is Mental Health?</a>
+            <a href="#influences" class="mobile-link block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-sage-50 font-medium">What Influences It?</a>
+            <a href="#recognizing-signs" class="mobile-link block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-sage-50 font-medium">Recognizing Challenges</a>
+            <a href="#toolkit" class="mobile-link block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-sage-50 font-medium">Self-Care & Breathing Toolkit</a>
+            <a href="#knowledge-quiz" class="mobile-link block px-3 py-2.5 rounded-xl bg-sage-600 text-white font-semibold text-center mt-2">Take the Knowledge Quiz</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. HERO SECTION -->
+        <section class="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 sm:px-6">
+            <!-- Soft decorative background circles -->
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-sage-200/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-40 -left-24 w-80 h-80 bg-terracotta-100/60 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sage-100 text-sage-800 text-xs sm:text-sm font-semibold mb-6">
+                    <i class="ph-fill ph-sparkle text-sage-600"></i>
+                    <span>A safe space to learn, reflect, and grow</span>
+                </div>
+
+                <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-sage-900 leading-tight mb-6">
+                    Your mind deserves the same care and kindness as your body.
+                </h1>
+
+                <p class="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
+                    Whether you're navigating tough emotions, supporting a friend, or simply wanting to understand how mental well-being works, you are in the right place. Take a deep breath—let's explore together.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#what-is-it" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-sage-600 hover:bg-sage-700 text-white font-semibold px-7 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition">
+                        <span>Start Learning</span>
+                        <i class="ph-bold ph-arrow-down"></i>
+                    </a>
+                    <a href="#knowledge-quiz" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-cream-50 text-sage-900 border border-cream-200 font-semibold px-7 py-3.5 rounded-2xl shadow-sm hover:shadow transition">
+                        <i class="ph-duotone ph-brain text-sage-600 text-xl"></i>
+                        <span>Test Your Knowledge</span>
+                    </a>
+                </div>
+
+                <!-- Quick Reassurance Pills -->
+                <div class="mt-14 pt-8 border-t border-cream-200/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-3xl mx-auto">
+                    <div class="bg-white/70 backdrop-blur-sm p-4 rounded-2xl border border-cream-200 flex items-start gap-3">
+                        <i class="ph-duotone ph-hand-heart text-2xl text-terracotta-500 shrink-0 mt-0.5"></i>
+                        <div>
+                            <h3 class="font-semibold text-sm text-slate-900">Zero Judgment</h3>
+                            <p class="text-xs text-slate-600 mt-0.5">Struggling is a human experience, never a personal weakness.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-sm p-4 rounded-2xl border border-cream-200 flex items-start gap-3">
+                        <i class="ph-duotone ph-book-open-text text-2xl text-sage-600 shrink-0 mt-0.5"></i>
+                        <div>
+                            <h3 class="font-semibold text-sm text-slate-900">Clear & Grounded</h3>
+                            <p class="text-xs text-slate-600 mt-0.5">Easy-to-understand insights backed by mental health science.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-sm p-4 rounded-2xl border border-cream-200 flex items-start gap-3">
+                        <i class="ph-duotone ph-lifebuoy text-2xl text-slateblue-500 shrink-0 mt-0.5"></i>
+                        <div>
+                            <h3 class="font-semibold text-sm text-slate-900">Always Supported</h3>
+                            <p class="text-xs text-slate-600 mt-0.5">Direct access to crisis helplines whenever you need them.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. WHAT IS MENTAL HEALTH? -->
+        <section id="what-is-it" class="py-16 sm:py-24 px-4 sm:px-6 bg-white border-y border-cream-200">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-3xl mx-auto text-center mb-14">
+                    <span class="text-sage-600 font-semibold text-sm uppercase tracking-wider">The Foundation</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-sage-900 mt-2 mb-4">What is Mental Health?</h2>
+                    <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+                        Mental health is much more than simply the absence of a mental illness. It encompasses our <strong>emotional, psychological, and social well-being</strong>. It shapes how we think, feel, and act every single day.
+                    </p>
+                </div>
+
+                <!-- Three Pillars Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12">
+                    <!-- Emotional -->
+                    <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 hover:border-sage-200 transition shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-terracotta-100 text-terracotta-600 flex items-center justify-center mb-5">
+                            <i class="ph-duotone ph-heart-half text-2xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-slate-900 mb-3">Emotional Well-Being</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            How we recognize, express, and navigate our feelings—both joyful and painful. Healthy emotional well-being doesn't mean feeling happy all the time; it means allowing yourself to feel and process emotions safely.
+                        </p>
+                    </div>
+
+                    <!-- Psychological -->
+                    <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 hover:border-sage-200 transition shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-sage-100 text-sage-700 flex items-center justify-center mb-5">
+                            <i class="ph-duotone ph-brain text-2xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-slate-900 mb-3">Psychological Well-Being</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            How we make sense of the world, handle everyday stress, solve problems, and view ourselves. It influences our resilience when plans fall apart and our ability to make thoughtful choices.
+                        </p>
+                    </div>
+
+                    <!-- Social -->
+                    <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 hover:border-sage-200 transition shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-slateblue-100 text-slateblue-700 flex items-center justify-center mb-5">
+                            <i class="ph-duotone ph-users-three text-2xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-slate-900 mb-3">Social Well-Being</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            How we connect with others, set healthy boundaries, communicate our needs, and feel a sense of belonging within our family, school, workplace, or community.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Life Stages Callout -->
+                <div class="bg-sage-50 rounded-3xl p-6 sm:p-8 border border-sage-200/70 flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-sage-600 text-white flex items-center justify-center shrink-0">
+                        <i class="ph-duotone ph-path text-3xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-serif text-lg sm:text-xl font-bold text-sage-900 mb-1">Important at Every Stage of Life</h4>
+                        <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                            From childhood and adolescence through adulthood and older age, our mental health naturally ebbs and flows like physical health. Just as you might catch a cold or sprain an ankle, anyone can experience periods where their mental health needs extra rest, support, or professional care.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. WHAT INFLUENCES MENTAL HEALTH? (Interactive Explorer) -->
+        <section id="influences" class="py-16 sm:py-24 px-4 sm:px-6 bg-cream-100">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-sage-600 font-semibold text-sm uppercase tracking-wider">Understanding the Roots</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-sage-900 mt-2 mb-4">What Influences Mental Health?</h2>
+                    <p class="text-slate-600 text-base sm:text-lg">
+                        Mental health isn't caused by just one thing. It's shaped by an interplay of biology, life events, and daily surroundings. Select a factor below to explore how it plays a role.
+                    </p>
+                </div>
+
+                <!-- Interactive Factor Tabs -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8" role="tablist" aria-label="Mental Health Influences">
+                    <button onclick="selectInfluence('biological')" id="tab-biological" role="tab" aria-selected="true" class="influence-tab active-tab p-4 rounded-2xl border text-left transition cursor-pointer bg-sage-700 text-white border-sage-700 shadow-md">
+                        <i class="ph-duotone ph-dna text-2xl mb-2 block"></i>
+                        <span class="font-semibold text-sm sm:text-base block">Biological Factors</span>
+                        <span class="text-xs opacity-85 block mt-0.5">Genetics & brain chemistry</span>
+                    </button>
+
+                    <button onclick="selectInfluence('experiences')" id="tab-experiences" role="tab" aria-selected="false" class="influence-tab p-4 rounded-2xl border text-left transition cursor-pointer bg-white text-slate-800 border-cream-200 hover:border-sage-300">
+                        <i class="ph-duotone ph-compass text-2xl mb-2 block text-terracotta-500"></i>
+                        <span class="font-semibold text-sm sm:text-base block">Life Experiences</span>
+                        <span class="text-xs text-slate-500 block mt-0.5">Trauma, stress & grief</span>
+                    </button>
+
+                    <button onclick="selectInfluence('lifestyle')" id="tab-lifestyle" role="tab" aria-selected="false" class="influence-tab p-4 rounded-2xl border text-left transition cursor-pointer bg-white text-slate-800 border-cream-200 hover:border-sage-300">
+                        <i class="ph-duotone ph-sun-horizon text-2xl mb-2 block text-sage-600"></i>
+                        <span class="font-semibold text-sm sm:text-base block">Lifestyle & Environment</span>
+                        <span class="text-xs text-slate-500 block mt-0.5">Sleep, habits & connection</span>
+                    </button>
+
+                    <button onclick="selectInfluence('family')" id="tab-family" role="tab" aria-selected="false" class="influence-tab p-4 rounded-2xl border text-left transition cursor-pointer bg-white text-slate-800 border-cream-200 hover:border-sage-300">
+                        <i class="ph-duotone ph-house-line text-2xl mb-2 block text-slateblue-500"></i>
+                        <span class="font-semibold text-sm sm:text-base block">Family History</span>
+                        <span class="text-xs text-slate-500 block mt-0.5">Inherited traits & patterns</span>
+                    </button>
+                </div>
+
+                <!-- Dynamic Content Panel -->
+                <div id="influence-panel" class="bg-white rounded-3xl p-6 sm:p-10 border border-cream-200 shadow-sm transition-all duration-300">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. RECOGNIZING MENTAL HEALTH CHALLENGES -->
+        <section id="recognizing-signs" class="py-16 sm:py-24 px-4 sm:px-6 bg-white border-y border-cream-200">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-3xl mx-auto text-center mb-12">
+                    <span class="text-terracotta-600 font-semibold text-sm uppercase tracking-wider">Gentle Awareness</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-sage-900 mt-2 mb-4">Recognizing Mental Health Challenges</h2>
+                    <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+                        Just like physical symptoms alert us when our body needs attention, changes in mood, energy, or behavior can be early signals that our mind is overwhelmed.
+                    </p>
+                </div>
+
+                <!-- Warning Signs Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+                    <div class="p-6 rounded-2xl bg-cream-50 border border-cream-200 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-slateblue-100 text-slateblue-700 flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="ph-duotone ph-cloud-rain text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-1">Persistent Sadness or Emptiness</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Feeling heavy, hopeless, tearful, or emotionally numb for two weeks or longer without a clear lift.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-cream-50 border border-cream-200 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-sage-100 text-sage-700 flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="ph-duotone ph-moon-stars text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-1">Changes in Sleep or Appetite</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Sleeping far too much or struggling with insomnia; noticing sudden shifts in eating habits or energy levels.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-cream-50 border border-cream-200 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-terracotta-100 text-terracotta-600 flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="ph-duotone ph-user-minus text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-1">Withdrawing from Others</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Pulling away from friends, family, or hobbies and activities that used to bring joy and connection.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-cream-50 border border-cream-200 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="ph-duotone ph-waves text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-1">Extreme Mood Swings or Worry</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Intense irritability, sudden anger, racing thoughts, or constant anxiety that feels hard to quiet.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-cream-50 border border-cream-200 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-sage-100 text-sage-700 flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="ph-duotone ph-puzzle-piece text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-1">Difficulty Concentrating</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Brain fog, forgetfulness, or struggling to keep up with schoolwork, job tasks, or everyday decisions.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-cream-50 border border-cream-200 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-slateblue-100 text-slateblue-700 flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="ph-duotone ph-heartbeat text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-1">Unexplained Physical Aches</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Frequent headaches, stomachaches, muscle tension, or exhaustion that doctors can't link to a physical illness.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compassionate Disclaimer Box -->
+                <div class="bg-terracotta-50 border border-terracotta-200 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                    <div class="w-12 h-12 rounded-2xl bg-terracotta-500 text-white flex items-center justify-center shrink-0">
+                        <i class="ph-bold ph-info text-2xl"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="font-serif text-lg font-bold text-slate-900">A Gentle Reminder: Signs Are an Invitation to Reach Out, Not a Label</h4>
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                            Noticing one or more of these signs in yourself or someone you care about is <strong>not a self-diagnosis</strong>. Everyone has rough days. However, when these feelings linger or interfere with daily life, talking to a trusted adult, school counselor, doctor, or mental health professional is a brave and helpful next step.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SELF-CARE & COPING TOOLKIT (4-7-8 Breathing Widget + Habits) -->
+        <section id="toolkit" class="py-16 sm:py-24 px-4 sm:px-6 bg-sage-50/70">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-sage-600 font-semibold text-sm uppercase tracking-wider">Pause & Ground Yourself</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-sage-900 mt-2 mb-4">Self-Care & Grounding Toolkit</h2>
+                    <p class="text-slate-600 text-base sm:text-lg">
+                        Small, intentional moments of care help calm your nervous system. Try the guided breathing exercise below whenever you feel stressed or overwhelmed.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Interactive 4-7-8 Breathing Timer -->
+                    <div class="lg:col-span-6 bg-white rounded-3xl p-8 border border-sage-200 shadow-sm text-center">
+                        <span class="inline-block px-3 py-1 rounded-full bg-sage-100 text-sage-800 text-xs font-semibold mb-3">
+                            4-7-8 Calming Breath
+                        </span>
+                        <h3 class="font-serif text-2xl font-bold text-sage-900 mb-2">Guided Breathing Circle</h3>
+                        <p class="text-sm text-slate-600 mb-8">Inhale for 4s, hold gently for 7s, exhale slowly for 8s.</p>
+
+                        <!-- Visual Breathing Circle -->
+                        <div class="relative w-52 h-52 mx-auto mb-8 flex items-center justify-center">
+                            <div id="breath-ring-outer" class="absolute inset-0 rounded-full bg-sage-100 transition-transform duration-1000 ease-in-out scale-90"></div>
+                            <div id="breath-circle" class="relative w-36 h-36 rounded-full bg-sage-600 text-white flex flex-col items-center justify-center shadow-lg transition-transform duration-1000 ease-in-out scale-100">
+                                <span id="breath-phase" class="font-serif text-lg font-bold tracking-wide">Ready</span>
+                                <span id="breath-timer" class="text-2xl font-light mt-1 opacity-90">--</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-center gap-3">
+                            <button id="breath-toggle-btn" onclick="toggleBreathing()" class="inline-flex items-center gap-2 bg-sage-600 hover:bg-sage-700 text-white font-semibold px-6 py-3 rounded-2xl transition shadow-sm cursor-pointer">
+                                <i id="breath-btn-icon" class="ph-fill ph-play"></i>
+                                <span id="breath-btn-text">Start Breathing</span>
+                            </button>
+                            <button id="breath-reset-btn" onclick="resetBreathing()" class="hidden inline-flex items-center gap-1.5 bg-cream-100 hover:bg-cream-200 text-slate-700 font-medium px-4 py-3 rounded-2xl transition cursor-pointer">
+                                <i class="ph-bold ph-arrow-counter-clockwise"></i>
+                                <span>Reset</span>
+                            </button>
+                        </div>
+                        <p id="breath-cycles" class="text-xs text-slate-500 mt-4">Completed cycles: 0</p>
+                    </div>
+
+                    <!-- Practical Grounding & Daily Habits -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="bg-white p-6 rounded-2xl border border-cream-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="w-8 h-8 rounded-lg bg-terracotta-100 text-terracotta-600 flex items-center justify-center font-bold text-sm">5-4-3-2-1</span>
+                                <h4 class="font-bold text-slate-900">Sensory Grounding Check-In</h4>
+                            </div>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Bring your mind back to the present moment by naming: <strong>5</strong> things you see, <strong>4</strong> things you can touch, <strong>3</strong> things you hear, <strong>2</strong> things you smell, and <strong>1</strong> thing you taste.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-cream-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="ph-duotone ph-chat-circle-dots text-2xl text-sage-600"></i>
+                                <h4 class="font-bold text-slate-900">Name It to Tame It</h4>
+                            </div>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Putting a specific word to what you're feeling—like <em>"I feel overwhelmed right now"</em> instead of <em>"Everything is ruined"</em>—helps lower emotional intensity in the brain.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-cream-200 shadow-sm">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="ph-duotone ph-plant text-2xl text-slateblue-500"></i>
+                                <h4 class="font-bold text-slate-900">Gentle Daily Anchors</h4>
+                            </div>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Protect basic rhythms: drink a glass of water, step outside into natural daylight for 10 minutes, stretch your shoulders, and give yourself permission to rest without guilt.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. INTERACTIVE MENTAL HEALTH KNOWLEDGE QUIZ -->
+        <section id="knowledge-quiz" class="py-16 sm:py-24 px-4 sm:px-6 bg-cream-100 border-t border-cream-200">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-10">
+                    <span class="text-sage-600 font-semibold text-sm uppercase tracking-wider">Interactive Check-In</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-sage-900 mt-2 mb-3">Test Your Mental Health Knowledge</h2>
+                    <p class="text-slate-600 text-base sm:text-lg">
+                        Separate common myths from supportive facts. Answer 7 short questions and learn helpful insights along the way.
+                    </p>
+                </div>
+
+                <!-- Quiz Card Container -->
+                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-cream-200 shadow-md">
+                    <!-- Quiz Active State -->
+                    <div id="quiz-active">
+                        <!-- Progress Header -->
+                        <div class="flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-500 mb-3">
+                            <span id="quiz-progress-text">Question 1 of 7</span>
+                            <span id="quiz-score-badge" class="bg-sage-50 text-sage-700 px-3 py-1 rounded-full">Score: 0</span>
+                        </div>
+                        <div class="w-full h-2.5 bg-cream-200 rounded-full overflow-hidden mb-8">
+                            <div id="quiz-progress-bar" class="h-full bg-sage-600 transition-all duration-500 rounded-full" style="width: 14.28%"></div>
+                        </div>
+
+                        <!-- Question Text -->
+                        <div class="mb-6">
+                            <span id="quiz-category" class="inline-block text-xs font-semibold uppercase tracking-wider text-terracotta-600 mb-2">Myth vs. Fact</span>
+                            <h3 id="quiz-question" class="font-serif text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
+                                <!-- Question injected here -->
+                            </h3>
+                        </div>
+
+                        <!-- Options List -->
+                        <div id="quiz-options" class="space-y-3 mb-6">
+                            <!-- Options injected here -->
+                        </div>
+
+                        <!-- Immediate Explanation Feedback -->
+                        <div id="quiz-feedback" class="hidden rounded-2xl p-5 mb-6 border transition-all">
+                            <div class="flex items-start gap-3">
+                                <i id="feedback-icon" class="text-2xl shrink-0 mt-0.5"></i>
+                                <div>
+                                    <h4 id="feedback-title" class="font-bold text-base mb-1"></h4>
+                                    <p id="feedback-text" class="text-sm leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Next Button -->
+                        <div class="flex justify-end">
+                            <button id="quiz-next-btn" onclick="nextQuestion()" class="hidden inline-flex items-center gap-2 bg-sage-600 hover:bg-sage-700 text-white font-semibold px-6 py-3 rounded-2xl transition shadow-sm cursor-pointer">
+                                <span id="quiz-next-text">Next Question</span>
+                                <i class="ph-bold ph-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Results Summary State -->
+                    <div id="quiz-results" class="hidden text-center py-4">
+                        <div id="result-badge-icon" class="w-20 h-20 rounded-full bg-sage-100 text-sage-700 flex items-center justify-center mx-auto mb-5">
+                            <i class="ph-duotone ph-medal text-4xl"></i>
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-sage-600">Quiz Complete</span>
+                        <h3 class="font-serif text-3xl font-bold text-sage-900 mt-1 mb-2">
+                            You scored <span id="final-score" class="text-sage-600">0</span> out of <span id="final-total">7</span>!
+                        </h3>
+                        <p id="result-message" class="text-slate-600 text-base max-w-xl mx-auto leading-relaxed mb-8">
+                            <!-- Personalized encouraging takeaway -->
+                        </p>
+
+                        <!-- Key Takeaways Box -->
+                        <div class="bg-cream-50 rounded-2xl p-6 border border-cream-200 text-left mb-8">
+                            <h4 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+                                <i class="ph-fill ph-sparkle text-terracotta-500"></i>
+                                <span>3 Supportive Takeaways to Remember</span>
+                            </h4>
+                            <ul class="space-y-2.5 text-sm text-slate-700">
+                                <li class="flex items-start gap-2.5">
+                                    <i class="ph-bold ph-check-circle text-sage-600 text-lg shrink-0 mt-0.5"></i>
+                                    <span>Mental health conditions are real, common, and treatable—never a sign of personal weakness.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="ph-bold ph-check-circle text-sage-600 text-lg shrink-0 mt-0.5"></i>
+                                    <span>Listening with empathy and without judgment is one of the most powerful ways to support a friend.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="ph-bold ph-check-circle text-sage-600 text-lg shrink-0 mt-0.5"></i>
+                                    <span>Asking for help early—whether from a loved one or a counselor—builds lifelong resilience.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                            <button onclick="restartQuiz()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-sage-600 hover:bg-sage-700 text-white font-semibold px-7 py-3.5 rounded-2xl transition shadow-sm cursor-pointer">
+                                <i class="ph-bold ph-arrow-counter-clockwise"></i>
+                                <span>Retake Quiz</span>
+                            </button>
+                            <button onclick="openCrisisModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-600 font-semibold px-6 py-3.5 rounded-2xl transition cursor-pointer">
+                                <i class="ph-bold ph-phone-call"></i>
+                                <span>View Support Helplines</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-sage-900 text-cream-100 py-12 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-8 border-b border-sage-700/60">
+            <div class="max-w-md">
+                <div class="flex items-center gap-2.5 mb-3">
+                    <div class="w-8 h-8 rounded-lg bg-sage-600 text-white flex items-center justify-center">
+                        <i class="ph-fill ph-plant text-lg"></i>
+                    </div>
+                    <span class="font-serif font-bold text-xl text-white">MindBridge</span>
+                </div>
+                <p class="text-sm text-sage-200 leading-relaxed">
+                    Dedicated to fostering compassion, clarity, and accessible mental health education for everyone. Remember: healing isn't linear, and support is always within reach.
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button onclick="openCrisisModal()" class="inline-flex items-center justify-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold px-5 py-3 rounded-2xl transition shadow-sm cursor-pointer">
+                    <i class="ph-bold ph-lifebuoy"></i>
+                    <span>Crisis & Support Resources</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-sage-200/80">
+            <p>Educational resource only. Not a substitute for professional medical or psychological advice, diagnosis, or treatment.</p>
+            <p>Take care of your mind today.</p>
+        </div>
+    </footer>
+
+    <!-- CRISIS SUPPORT MODAL -->
+    <div id="crisis-modal" role="dialog" aria-modal="true" aria-labelledby="crisis-modal-title" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-cream-200 relative animate-fadeIn">
+            <button onclick="closeCrisisModal()" aria-label="Close modal" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-cream-100 hover:bg-cream-200 text-slate-700 flex items-center justify-center transition cursor-pointer">
+                <i class="ph-bold ph-x text-lg"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-terracotta-100 text-terracotta-600 flex items-center justify-center shrink-0">
+                    <i class="ph-fill ph-heart text-2xl"></i>
+                </div>
+                <div>
+                    <h3 id="crisis-modal-title" class="font-serif text-2xl font-bold text-slate-900">You Are Not Alone</h3>
+                    <p class="text-sm text-slate-600">Free, confidential support is available right now.</p>
+                </div>
+            </div>
+
+            <p class="text-sm text-slate-700 leading-relaxed mb-5">
+                If you or someone you know is struggling, feeling overwhelmed, or in crisis, please reach out to caring people ready to listen without judgment:
+            </p>
+
+            <div class="space-y-3 mb-6">
+                <!-- Malaysia Helplines -->
+                <div class="p-4 rounded-2xl bg-sage-50 border border-sage-200">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-sage-900 text-sm">Malaysia — Befrienders & Talian Kasih</span>
+                        <span class="text-xs font-semibold bg-sage-200 text-sage-900 px-2 py-0.5 rounded-full">24/7 Free</span>
+                    </div>
+                    <p class="text-xs text-slate-700 leading-relaxed">
+                        • <strong>Befrienders KL:</strong> Call <a href="tel:0376272929" class="underline font-semibold text-sage-700">03-7627 2929</a> (Confidential emotional support)<br>
+                        • <strong>Talian Kasih / HEAL Line:</strong> Call <a href="tel:15999" class="underline font-semibold text-sage-700">15999</a> or <a href="tel:15555" class="underline font-semibold text-sage-700">15555</a>
+                    </p>
+                </div>
+
+                <!-- US & Canada Helpline -->
+                <div class="p-4 rounded-2xl bg-cream-50 border border-cream-200">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-slate-900 text-sm">US & Canada — Suicide & Crisis Lifeline</span>
+                        <span class="text-xs font-semibold bg-cream-200 text-slate-800 px-2 py-0.5 rounded-full">Call or Text</span>
+                    </div>
+                    <p class="text-xs text-slate-700 leading-relaxed">
+                        • Call or text <a href="tel:988" class="underline font-semibold text-terracotta-600">988</a> (Available 24/7 in English & Spanish)<br>
+                        • <strong>Crisis Text Line:</strong> Text <strong>HOME</strong> to <strong>741741</strong>
+                    </p>
+                </div>
+
+                <!-- International & Trusted People -->
+                <div class="p-4 rounded-2xl bg-slateblue-50 border border-slateblue-100">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-slate-900 text-sm">International & Local Support</span>
+                    </div>
+                    <p class="text-xs text-slate-700 leading-relaxed">
+                        • Outside these regions? Find local helplines worldwide at <a href="https://findahelpline.com/" target="_blank" rel="noopener noreferrer" class="underline font-semibold text-slateblue-700">findahelpline.com</a>.<br>
+                        • Reach out to a trusted family member, friend, teacher, counselor, or contact your local emergency services (e.g., <strong>999</strong> or <strong>911</strong>) if in immediate danger.
+                    </p>
+                </div>
+            </div>
+
+            <button onclick="closeCrisisModal()" class="w-full bg-sage-700 hover:bg-sage-800 text-white font-semibold py-3 rounded-2xl transition cursor-pointer">
+                Close Window
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // ==========================================
+        // 1. MOBILE MENU & MODAL CONTROLS
+        // ==========================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const crisisModal = document.getElementById('crisis-modal');
+
+        function openCrisisModal() {
+            crisisModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCrisisModal() {
+            crisisModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on backdrop click or Escape key
+        crisisModal.addEventListener('click', (e) => {
+            if (e.target === crisisModal) closeCrisisModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !crisisModal.classList.contains('hidden')) {
+                closeCrisisModal();
+            }
+        });
+
+        // ==========================================
+        // 2. INFLUENCES EXPLORER DATA & LOGIC
+        // ==========================================
+        const influencesData = {
+            biological: {
+                title: "Biological Factors: Brain Chemistry & Genetics",
+                badge: "Internal Biology",
+                badgeColor: "bg-sage-100 text-sage-800",
+                icon: "ph-dna",
+                iconBg: "bg-sage-100 text-sage-700",
+                summary: "Just like our heart or lungs, the brain is a physical organ. Its chemical messengers (neurotransmitters), hormones, and genetic makeup naturally influence how we regulate mood, stress, and energy.",
+                points: [
+                    "Neurotransmitters like serotonin, dopamine, and norepinephrine help regulate sleep, focus, and emotional balance.",
+                    "Hormonal shifts (during puberty, pregnancy, or thyroid changes) can noticeably affect mood and energy.",
+                    "Physical health conditions, chronic pain, or nutrient deficiencies can closely interact with mental well-being."
+                ],
+                takeaway: "Because biology plays a real role, mental health challenges are medical and human—never something you can simply 'snap out of' by willpower alone."
+            },
+            experiences: {
+                title: "Life Experiences: Stress, Trauma & Loss",
+                badge: "Life Journey",
+                badgeColor: "bg-terracotta-100 text-terracotta-600",
+                icon: "ph-compass",
+                iconBg: "bg-terracotta-100 text-terracotta-600",
+                summary: "What happens to us leaves an imprint on our nervous system. Difficult, overwhelming, or frightening experiences can keep the brain's alarm system on high alert long after the event passes.",
+                points: [
+                    "Grief and loss—such as losing a loved one, a relationship, or a major life transition—require time and support to process.",
+                    "Past or ongoing trauma, bullying, or chronic academic/workplace pressure can strain emotional resilience.",
+                    "Conversely, positive experiences like supportive friendships and feeling safe help build strong protective buffers."
+                ],
+                takeaway: "Your reactions to difficult experiences are often your mind's way of trying to protect you—and with care, the nervous system can learn to feel safe again."
+            },
+            lifestyle: {
+                title: "Lifestyle & Environment: Daily Surroundings",
+                badge: "Everyday Rhythms",
+                badgeColor: "bg-sage-100 text-sage-800",
+                icon: "ph-sun-horizon",
+                iconBg: "bg-sage-100 text-sage-700",
+                summary: "Our daily routines and physical surroundings quietly shape how well our brain recovers each day. Small, consistent habits create the foundation for emotional steadiness.",
+                points: [
+                    "Restorative sleep allows the brain to process emotions; chronic sleep loss heightens anxiety and irritability.",
+                    "Meaningful social connection protects against loneliness, while constant social media comparison can drain self-esteem.",
+                    "Regular movement, balanced nutrition, sunlight, and safe living spaces nourish both body and mind."
+                ],
+                takeaway: "While lifestyle changes aren't a cure-all, nurturing gentle daily habits gives your brain the fuel it needs to cope with stress."
+            },
+            family: {
+                title: "Family History: Shared Genes & Learned Patterns",
+                badge: "Roots & Environment",
+                badgeColor: "bg-slateblue-100 text-slateblue-700",
+                icon: "ph-house-line",
+                iconBg: "bg-slateblue-100 text-slateblue-700",
+                summary: "Family history influences mental health in two ways: through inherited genetic traits and through the emotional habits we observe growing up.",
+                points: [
+                    "Having a close relative who experienced depression, anxiety, or bipolar disorder can increase sensitivity to those conditions.",
+                    "Families also pass down ways of handling conflict, expressing (or hiding) feelings, and coping with stress.",
+                    "Knowing your family history empowers you to recognize early signs sooner and build healthier coping tools."
+                ],
+                takeaway: "Family history is a helpful map, not your destiny. Understanding your roots allows you to choose new, supportive paths forward."
+            }
+        };
+
+        function selectInfluence(key) {
+            // Update Tab Styling
+            document.querySelectorAll('.influence-tab').forEach(tab => {
+                tab.classList.remove('bg-sage-700', 'text-white', 'border-sage-700', 'shadow-md');
+                tab.classList.add('bg-white', 'text-slate-800', 'border-cream-200');
+                tab.setAttribute('aria-selected', 'false');
+                const subtext = tab.querySelectorAll('span')[1];
+                if (subtext) {
+                    subtext.classList.remove('opacity-85');
+                    subtext.classList.add('text-slate-500');
+                }
+            });
+
+            const activeTab = document.getElementById(`tab-${key}`);
+            activeTab.classList.remove('bg-white', 'text-slate-800', 'border-cream-200');
+            activeTab.classList.add('bg-sage-700', 'text-white', 'border-sage-700', 'shadow-md');
+            activeTab.setAttribute('aria-selected', 'true');
+            const activeSubtext = activeTab.querySelectorAll('span')[1];
+            if (activeSubtext) {
+                activeSubtext.classList.remove('text-slate-500');
+                activeSubtext.classList.add('opacity-85');
+            }
+
+            // Render Content Panel
+            const data = influencesData[key];
+            const panel = document.getElementById('influence-panel');
+            panel.innerHTML = `
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="w-14 h-14 rounded-2xl ${data.iconBg} flex items-center justify-center shrink-0">
+                        <i class="ph-duotone ${data.icon} text-3xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold ${data.badgeColor} mb-2">
+                            ${data.badge}
+                        </span>
+                        <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">${data.title}</h3>
+                        <p class="text-slate-600 text-base leading-relaxed mb-5">${data.summary}</p>
+                        
+                        <ul class="space-y-2.5 mb-6">
+                            ${data.points.map(pt => `
+                                <li class="flex items-start gap-2.5 text-sm sm:text-base text-slate-700">
+                                    <i class="ph-fill ph-check-circle text-sage-600 text-lg shrink-0 mt-0.5"></i>
+                                    <span>${pt}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+
+                        <div class="bg-cream-50 border-l-4 border-sage-600 p-4 rounded-r-2xl text-sm text-slate-700">
+                            <strong class="text-sage-900">Key Insight:</strong> ${data.takeaway}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize first influence tab on load
+        selectInfluence('biological');
+
+        // ==========================================
+        // 3. GUIDED 4-7-8 BREATHING WIDGET
+        // ==========================================
+        let breathInterval = null;
+        let isBreathing = false;
+        let completedCycles = 0;
+
+        const breathCircle = document.getElementById('breath-circle');
+        const breathRingOuter = document.getElementById('breath-ring-outer');
+        const breathPhaseEl = document.getElementById('breath-phase');
+        const breathTimerEl = document.getElementById('breath-timer');
+        const breathToggleBtn = document.getElementById('breath-toggle-btn');
+        const breathBtnIcon = document.getElementById('breath-btn-icon');
+        const breathBtnText = document.getElementById('breath-btn-text');
+        const breathResetBtn = document.getElementById('breath-reset-btn');
+        const breathCyclesEl = document.getElementById('breath-cycles');
+
+        const phases = [
+            { name: "Inhale", duration: 4, scale: "scale-125", outerScale: "scale-110", color: "bg-sage-600" },
+            { name: "Hold", duration: 7, scale: "scale-125", outerScale: "scale-110", color: "bg-slateblue-500" },
+            { name: "Exhale", duration: 8, scale: "scale-95", outerScale: "scale-90", color: "bg-sage-700" }
+        ];
+
+        let currentPhaseIdx = 0;
+        let secondsLeft = 0;
+
+        function updateBreathingUI() {
+            const phase = phases[currentPhaseIdx];
+            breathPhaseEl.textContent = phase.name;
+            breathTimerEl.textContent = `${secondsLeft}s`;
+            
+            breathCircle.className = `relative w-36 h-36 rounded-full ${phase.color} text-white flex flex-col items-center justify-center shadow-lg transition-all duration-1000 ease-in-out ${phase.scale}`;
+            breathRingOuter.className = `absolute inset-0 rounded-full bg-sage-200/70 transition-transform duration-1000 ease-in-out ${phase.outerScale}`;
+        }
+
+        function toggleBreathing() {
+            if (isBreathing) {
+                // Pause
+                clearInterval(breathInterval);
+                isBreathing = false;
+                breathBtnIcon.className = "ph-fill ph-play";
+                breathBtnText.textContent = "Resume";
+            } else {
+                // Start or Resume
+                isBreathing = true;
+                breathBtnIcon.className = "ph-fill ph-pause";
+                breathBtnText.textContent = "Pause";
+                breathResetBtn.classList.remove('hidden');
+
+                if (secondsLeft === 0) {
+                    currentPhaseIdx = 0;
+                    secondsLeft = phases[0].duration;
+                }
+                updateBreathingUI();
+
+                breathInterval = setInterval(() => {
+                    secondsLeft--;
+                    if (secondsLeft <= 0) {
+                        currentPhaseIdx++;
+                        if (currentPhaseIdx >= phases.length) {
+                            currentPhaseIdx = 0;
+                            completedCycles++;
+                            breathCyclesEl.textContent = `Completed cycles: ${completedCycles}`;
+                        }
+                        secondsLeft = phases[currentPhaseIdx].duration;
+                    }
+                    updateBreathingUI();
+                }, 1000);
+            }
+        }
+
+        function resetBreathing() {
+            clearInterval(breathInterval);
+            isBreathing = false;
+            currentPhaseIdx = 0;
+            secondsLeft = 0;
+            completedCycles = 0;
+
+            breathPhaseEl.textContent = "Ready";
+            breathTimerEl.textContent = "--";
+            breathCircle.className = "relative w-36 h-36 rounded-full bg-sage-600 text-white flex flex-col items-center justify-center shadow-lg transition-transform duration-1000 ease-in-out scale-100";
+            breathRingOuter.className = "absolute inset-0 rounded-full bg-sage-100 transition-transform duration-1000 ease-in-out scale-90";
+            
+            breathBtnIcon.className = "ph-fill ph-play";
+            breathBtnText.textContent = "Start Breathing";
+            breathResetBtn.classList.add('hidden');
+            breathCyclesEl.textContent = "Completed cycles: 0";
+        }
+
+        // ==========================================
+        // 4. INTERACTIVE MENTAL HEALTH QUIZ
+        // ==========================================
+        const quizQuestions = [
+            {
+                category: "Understanding Mental Health",
+                question: "True or False: Having good mental health means feeling happy and positive all the time.",
+                options: [
+                    "True — mentally healthy people rarely feel sad or stressed.",
+                    "False — mental health includes feeling a full range of emotions and coping with life's ups and downs."
+                ],
+                correctIndex: 1,
+                explanation: "Feeling sad, frustrated, or anxious during tough moments is completely normal! Good mental health is about resilience—how we process emotions, adapt to stress, and seek support when needed."
+            },
+            {
+                category: "Myth vs. Fact",
+                question: "Which statement is true about experiencing a mental health challenge?",
+                options: [
+                    "It is a sign of personal weakness or lack of willpower.",
+                    "It is shaped by a mix of biology, life experiences, and environment—and recovery is possible.",
+                    "Only adults experience real mental health struggles; teens just 'grow out of it.'"
+                ],
+                correctIndex: 1,
+                explanation: "Mental health challenges are never a character flaw. Just like physical health conditions, they involve real biological and environmental factors, and people of all ages benefit from care and support."
+            },
+            {
+                category: "Recognizing Signals",
+                question: "Which of the following can be an early warning sign that someone's mental health needs extra care?",
+                options: [
+                    "Pulling away from friends and hobbies they usually love, along with major changes in sleep.",
+                    "Feeling nervous the night before an important exam or presentation.",
+                    "Wanting an afternoon alone to recharge after a busy week."
+                ],
+                correctIndex: 0,
+                explanation: "Short-term nerves before a big event or enjoying quiet alone time are healthy. However, persistent withdrawal from loved ones and ongoing sleep or appetite changes are signals to check in and reach out."
+            },
+            {
+                category: "Supporting a Friend",
+                question: "If a friend opens up to you about feeling overwhelmed and hopeless, what is the most helpful first response?",
+                options: [
+                    "Tell them to cheer up because other people have it worse.",
+                    "Listen with empathy without judging, thank them for trusting you, and encourage talking to a trusted adult or professional.",
+                    "Promise to keep it a secret even if they say they might hurt themselves."
+                ],
+                correctIndex: 1,
+                explanation: "Listening with warmth and validating their feelings makes a huge difference. And remember: if someone's safety is at risk, connecting them with a trusted adult or crisis helpline is always the caring choice."
+            },
+            {
+                category: "Healthy Coping",
+                question: "What does the '5-4-3-2-1' grounding technique help you do during a moment of high anxiety?",
+                options: [
+                    "Ignore your feelings completely so they disappear.",
+                    "Reconnect with your physical surroundings using your five senses to calm racing thoughts.",
+                    "Memorize a list of daily chores to stay busy."
+                ],
+                correctIndex: 1,
+                explanation: "Grounding gently shifts your brain's focus away from anxious 'what-if' spirals and back into the safety of the present moment using sight, touch, sound, smell, and taste."
+            },
+            {
+                category: "What Influences Mental Health",
+                question: "How does chronic lack of sleep affect mental well-being?",
+                options: [
+                    "It has no effect on emotions as long as you drink enough caffeine.",
+                    "It makes it harder for the brain to regulate emotions, increasing stress, irritability, and brain fog.",
+                    "It only affects physical muscles, not the brain."
+                ],
+                correctIndex: 1,
+                explanation: "During sleep, the brain processes daily emotions and resets stress pathways. Protecting consistent, restful sleep is one of the strongest everyday foundations for mental wellness."
+            },
+            {
+                category: "Reaching Out for Help",
+                question: "When is the right time to talk to a counselor, doctor, or trusted adult about your mental health?",
+                options: [
+                    "Only when things reach an absolute emergency.",
+                    "Whenever struggles feel heavy, confusing, or start affecting your daily life, sleep, or relationships.",
+                    "Never—you should always figure everything out completely on your own."
+                ],
+                correctIndex: 1,
+                explanation: "You never have to wait until things feel unbearable to ask for support. Reaching out early is a sign of self-awareness and strength."
+            }
+        ];
+
+        let currentQuestionIdx = 0;
+        let score = 0;
+        let hasAnsweredCurrent = false;
+
+        const quizActiveEl = document.getElementById('quiz-active');
+        const quizResultsEl = document.getElementById('quiz-results');
+        const quizProgressText = document.getElementById('quiz-progress-text');
+        const quizScoreBadge = document.getElementById('quiz-score-badge');
+        const quizProgressBar = document.getElementById('quiz-progress-bar');
+        const quizCategoryEl = document.getElementById('quiz-category');
+        const quizQuestionEl = document.getElementById('quiz-question');
+        const quizOptionsEl = document.getElementById('quiz-options');
+        const quizFeedbackEl = document.getElementById('quiz-feedback');
+        const feedbackIconEl = document.getElementById('feedback-icon');
+        const feedbackTitleEl = document.getElementById('feedback-title');
+        const feedbackTextEl = document.getElementById('feedback-text');
+        const quizNextBtn = document.getElementById('quiz-next-btn');
+        const quizNextText = document.getElementById('quiz-next-text');
+
+        function renderQuestion() {
+            hasAnsweredCurrent = false;
+            const q = quizQuestions[currentQuestionIdx];
+            const total = quizQuestions.length;
+
+            quizProgressText.textContent = `Question ${currentQuestionIdx + 1} of ${total}`;
+            quizScoreBadge.textContent = `Score: ${score}`;
+            quizProgressBar.style.width = `${((currentQuestionIdx + 1) / total) * 100}%`;
+            quizCategoryEl.textContent = q.category;
+            quizQuestionEl.textContent = q.question;
+
+            quizFeedbackEl.classList.add('hidden');
+            quizNextBtn.classList.add('hidden');
+
+            quizOptionsEl.innerHTML = '';
+            q.options.forEach((optionText, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = "quiz-option-btn w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-cream-200 bg-cream-50/50 hover:bg-sage-50 hover:border-sage-300 transition flex items-start gap-3.5 cursor-pointer group";
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-full border-2 border-slate-300 group-hover:border-sage-600 flex items-center justify-center text-xs font-bold text-slate-600 shrink-0 mt-0.5 transition">
+                        ${String.fromCharCode(65 + idx)}
+                    </span>
+                    <span class="text-sm sm:text-base text-slate-800 font-medium leading-snug">${optionText}</span>
+                `;
+                btn.addEventListener('click', () => handleAnswer(idx));
+                quizOptionsEl.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selectedIdx) {
+            if (hasAnsweredCurrent) return;
+            hasAnsweredCurrent = true;
+
+            const q = quizQuestions[currentQuestionIdx];
+            const isCorrect = selectedIdx === q.correctIndex;
+            const optionBtns = document.querySelectorAll('.quiz-option-btn');
+
+            if (isCorrect) {
+                score++;
+                quizScoreBadge.textContent = `Score: ${score}`;
+            }
+
+            // Style all option buttons to reflect correctness
+            optionBtns.forEach((btn, idx) => {
+                btn.disabled = true;
+                btn.classList.remove('cursor-pointer', 'hover:bg-sage-50', 'hover:border-sage-300');
+                const letterCircle = btn.querySelector('span');
+
+                if (idx === q.correctIndex) {
+                    btn.classList.remove('border-cream-200', 'bg-cream-50/50');
+                    btn.classList.add('border-sage-600', 'bg-sage-50');
+                    letterCircle.classList.remove('border-slate-300', 'text-slate-600');
+                    letterCircle.classList.add('bg-sage-600', 'border-sage-600', 'text-white');
+                    letterCircle.innerHTML = '<i class="ph-bold ph-check"></i>';
+                } else if (idx === selectedIdx && !isCorrect) {
+                    btn.classList.remove('border-cream-200', 'bg-cream-50/50');
+                    btn.classList.add('border-terracotta-500', 'bg-terracotta-50');
+                    letterCircle.classList.remove('border-slate-300', 'text-slate-600');
+                    letterCircle.classList.add('bg-terracotta-500', 'border-terracotta-500', 'text-white');
+                    letterCircle.innerHTML = '<i class="ph-bold ph-x"></i>';
+                } else {
+                    btn.classList.add('opacity-60');
+                }
+            });
+
+            // Show immediate encouraging explanation
+            quizFeedbackEl.classList.remove('hidden', 'bg-sage-50', 'border-sage-200', 'bg-terracotta-50', 'border-terracotta-200');
+            if (isCorrect) {
+                quizFeedbackEl.classList.add('bg-sage-50', 'border-sage-200');
+                feedbackIconEl.className = 'ph-fill ph-check-circle text-sage-600 text-2xl shrink-0 mt-0.5';
+                feedbackTitleEl.className = 'font-bold text-base mb-1 text-sage-900';
+                feedbackTitleEl.textContent = 'Spot on! Great insight.';
+                feedbackTextEl.className = 'text-sm leading-relaxed text-sage-800';
+            } else {
+                quizFeedbackEl.classList.add('bg-terracotta-50', 'border-terracotta-200');
+                feedbackIconEl.className = 'ph-fill ph-lightbulb text-terracotta-500 text-2xl shrink-0 mt-0.5';
+                feedbackTitleEl.className = 'font-bold text-base mb-1 text-slate-900';
+                feedbackTitleEl.textContent = "Good try — here's why:";
+                feedbackTextEl.className = 'text-sm leading-relaxed text-slate-700';
+            }
+            feedbackTextEl.textContent = q.explanation;
+
+            // Show Next or See Results button
+            quizNextText.textContent = currentQuestionIdx === quizQuestions.length - 1 ? 'See My Results' : 'Next Question';
+            quizNextBtn.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < quizQuestions.length) {
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizActiveEl.classList.add('hidden');
+            quizResultsEl.classList.remove('hidden');
+
+            const total = quizQuestions.length;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('final-total').textContent = total;
+
+            const resultMessageEl = document.getElementById('result-message');
+            if (score >= 6) {
+                resultMessageEl.textContent = "Wonderful work! You have a deeply compassionate, grounded understanding of mental health. Sharing this awareness helps make your community safer and kinder for everyone.";
+            } else if (score >= 4) {
+                resultMessageEl.textContent = "Great job! You already know many key truths about mental health, and every new insight helps break stigma and build empathy for yourself and others.";
+            } else {
+                resultMessageEl.textContent = "Thank you for taking the time to explore and learn! Mental health has many myths surrounding it, and simply being curious and open-minded is a meaningful step forward.";
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIdx = 0;
+            score = 0;
+            quizResultsEl.classList.add('hidden');
+            quizActiveEl.classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // Initialize Quiz on load
+        renderQuestion();
+    </script>
+</body>
+</html>
