@@ -6,6 +6,8 @@
     <title>MindBridge | Understanding & Nurturing Mental Health</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- TensorFlow.js (Client-Side Machine Learning in the Browser) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <!-- Google Fonts: Inter & Fraunces (for warm, calming editorial headings) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,10 +83,14 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+            <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-medium text-slate-600">
                 <a href="#what-is-it" class="hover:text-sage-700 transition py-2">What It Is</a>
-                <a href="#influences" class="hover:text-sage-700 transition py-2">What Influences It</a>
+                <a href="#influences" class="hover:text-sage-700 transition py-2">Influences</a>
                 <a href="#recognizing-signs" class="hover:text-sage-700 transition py-2">Recognizing Signs</a>
+                <a href="#ai-checkin" class="hover:text-sage-700 transition py-2 inline-flex items-center gap-1 text-sage-700 font-semibold">
+                    <i class="ph-duotone ph-sparkle"></i>
+                    <span>AI Check-In</span>
+                </a>
                 <a href="#toolkit" class="hover:text-sage-700 transition py-2">Calm Toolkit</a>
                 <a href="#knowledge-quiz" class="bg-sage-100 text-sage-800 hover:bg-sage-200 px-4 py-2 rounded-full font-semibold transition">
                     Knowledge Quiz
@@ -102,6 +108,7 @@
             <a href="#what-is-it" class="mobile-link block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-sage-50 font-medium">What is Mental Health?</a>
             <a href="#influences" class="mobile-link block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-sage-50 font-medium">What Influences It?</a>
             <a href="#recognizing-signs" class="mobile-link block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-sage-50 font-medium">Recognizing Challenges</a>
+            <a href="#ai-checkin" class="mobile-link block px-3 py-2.5 rounded-xl text-sage-800 bg-sage-50 font-semibold">AI Mood Check-In (TensorFlow.js)</a>
             <a href="#toolkit" class="mobile-link block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-sage-50 font-medium">Self-Care & Breathing Toolkit</a>
             <a href="#knowledge-quiz" class="mobile-link block px-3 py-2.5 rounded-xl bg-sage-600 text-white font-semibold text-center mt-2">Take the Knowledge Quiz</a>
         </div>
@@ -357,6 +364,181 @@
                         <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
                             Noticing one or more of these signs in yourself or someone you care about is <strong>not a self-diagnosis</strong>. Everyone has rough days. However, when these feelings linger or interfere with daily life, talking to a trusted adult, school counselor, doctor, or mental health professional is a brave and helpful next step.
                         </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4.5. AI MOOD & REFLECTION CHECK-IN (TENSORFLOW.JS NEURAL NETWORK) -->
+        <section id="ai-checkin" class="py-16 sm:py-24 px-4 sm:px-6 bg-cream-50 border-b border-cream-200">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slateblue-100 text-slateblue-700 text-xs font-semibold mb-3">
+                        <i class="ph-fill ph-cpu text-base"></i>
+                        <span>Powered by TensorFlow.js • 100% Private On-Device AI</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-sage-900 mt-1 mb-4">AI Mood & Reflection Check-In</h2>
+                    <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+                        Write a few sentences about how you're feeling today. A lightweight neural network running directly inside your web browser will gently reflect back the emotional tone of your words and suggest supportive next steps.
+                    </p>
+                </div>
+
+                <!-- Main TensorFlow Card -->
+                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-cream-200 shadow-md">
+                    <!-- Top Status & Privacy Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-6 border-b border-cream-200">
+                        <div class="flex items-center gap-3">
+                            <div id="tf-status-indicator" class="w-3 h-3 rounded-full bg-amber-400 animate-pulse shrink-0"></div>
+                            <div>
+                                <span id="tf-status-text" class="text-sm font-bold text-slate-900 block">Initializing TensorFlow.js Neural Network...</span>
+                                <span id="tf-status-sub" class="text-xs text-slate-500 block">Training dense sentiment layers locally in your browser</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sage-50 border border-sage-200 text-sage-800 text-xs font-medium">
+                                <i class="ph-fill ph-lock-key text-sage-600"></i>
+                                <span>Zero Server Uploads</span>
+                            </span>
+                            <button id="tf-retrain-btn" onclick="trainMentalHealthModel()" class="hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cream-100 hover:bg-cream-200 text-slate-700 text-xs font-semibold transition cursor-pointer" title="Retrain Neural Network">
+                                <i class="ph-bold ph-arrows-clockwise"></i>
+                                <span>Retrain</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <!-- Left Column: Journal Input & Sample Prompts -->
+                        <div class="lg:col-span-6 flex flex-col justify-between">
+                            <div>
+                                <label for="reflection-input" class="block font-serif text-lg font-bold text-slate-900 mb-2">
+                                    How is your mind feeling right now?
+                                </label>
+                                <p class="text-xs text-slate-500 mb-3">
+                                    Try writing naturally—or tap a sample reflection below to test the TensorFlow.js model:
+                                </p>
+
+                                <!-- Quick Sample Pills -->
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <button type="button" onclick="fillSampleReflection('calm')" class="text-xs px-3 py-1.5 rounded-full bg-sage-50 hover:bg-sage-100 text-sage-800 border border-sage-200 font-medium transition cursor-pointer">
+                                        "Feeling peaceful & grateful"
+                                    </button>
+                                    <button type="button" onclick="fillSampleReflection('stressed')" class="text-xs px-3 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-medium transition cursor-pointer">
+                                        "Overwhelmed with exams & worry"
+                                    </button>
+                                    <button type="button" onclick="fillSampleReflection('low')" class="text-xs px-3 py-1.5 rounded-full bg-slateblue-50 hover:bg-slateblue-100 text-slateblue-800 border border-slateblue-200 font-medium transition cursor-pointer">
+                                        "Exhausted, lonely & heavy"
+                                    </button>
+                                </div>
+
+                                <textarea id="reflection-input" rows="5" placeholder="Example: I've been feeling really anxious about school lately and having trouble sleeping, though talking to a friend helped a little..." class="w-full rounded-2xl border border-cream-200 bg-cream-50/60 focus:bg-white focus:border-sage-500 focus:ring-2 focus:ring-sage-200 p-4 text-sm sm:text-base text-slate-800 placeholder-slate-400 transition outline-none resize-none"></textarea>
+                            </div>
+
+                            <div class="mt-4 flex flex-col sm:flex-row items-center gap-3">
+                                <button id="analyze-reflection-btn" onclick="analyzeReflection()" disabled class="w-full sm:flex-1 inline-flex items-center justify-center gap-2 bg-sage-600 disabled:bg-slate-300 hover:bg-sage-700 text-white font-semibold px-6 py-3.5 rounded-2xl transition shadow-sm cursor-pointer disabled:cursor-not-allowed">
+                                    <i class="ph-bold ph-sparkle text-lg"></i>
+                                    <span>Analyze Reflection with TensorFlow.js</span>
+                                </button>
+                                <button type="button" onclick="clearReflection()" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-cream-100 hover:bg-cream-200 text-slate-700 font-medium px-4 py-3.5 rounded-2xl transition cursor-pointer">
+                                    <span>Clear</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Neural Network Prediction & Gentle Guidance -->
+                        <div class="lg:col-span-6 bg-cream-50 rounded-2xl p-6 border border-cream-200 flex flex-col justify-between">
+                            <!-- Empty Placeholder State -->
+                            <div id="tf-result-placeholder" class="my-auto text-center py-8 px-4">
+                                <div class="w-14 h-14 rounded-2xl bg-slateblue-100 text-slateblue-700 flex items-center justify-center mx-auto mb-4">
+                                    <i class="ph-duotone ph-brain text-3xl"></i>
+                                </div>
+                                <h3 class="font-serif text-lg font-bold text-slate-900 mb-1.5">Ready for Your Check-In</h3>
+                                <p class="text-sm text-slate-600 leading-relaxed">
+                                    Once you enter a reflection and click analyze, our 3-layer <code class="text-xs bg-white px-1.5 py-0.5 rounded border border-cream-200">tf.sequential()</code> model will estimate emotional tone probabilities and offer tailored support.
+                                </p>
+                            </div>
+
+                            <!-- Active Prediction Output -->
+                            <div id="tf-result-output" class="hidden space-y-5">
+                                <!-- Safety Alert Banner (Shown if crisis words detected) -->
+                                <div id="tf-crisis-alert" class="hidden p-4 rounded-2xl bg-terracotta-50 border-2 border-terracotta-500 text-slate-900">
+                                    <div class="flex items-start gap-3">
+                                        <i class="ph-fill ph-heart text-terracotta-500 text-2xl shrink-0 mt-0.5"></i>
+                                        <div>
+                                            <h4 class="font-bold text-sm text-terracotta-600">We care about your safety</h4>
+                                            <p class="text-xs text-slate-700 mt-1 leading-relaxed">
+                                                It sounds like you may be going through a very painful moment. Please consider connecting with a caring person right now—you don't have to carry this alone.
+                                            </p>
+                                            <button onclick="openCrisisModal()" class="mt-2.5 inline-flex items-center gap-1.5 bg-terracotta-500 hover:bg-terracotta-600 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition cursor-pointer">
+                                                <i class="ph-bold ph-phone-call"></i>
+                                                <span>Open 24/7 Support Helplines</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dominant Tone Header -->
+                                <div>
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Detected Emotional Tone</span>
+                                    <div class="flex items-center gap-2.5 mt-1">
+                                        <span id="tf-primary-badge" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-sage-100 text-sage-800">
+                                            <!-- Populated by JS -->
+                                        </span>
+                                        <span id="tf-confidence-tag" class="text-xs font-semibold text-slate-500"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Neural Network Confidence Bars -->
+                                <div class="space-y-3 bg-white p-4 rounded-2xl border border-cream-200">
+                                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">TensorFlow.js Softmax Probabilities</div>
+                                    
+                                    <!-- Bar 1: Calm & Grounded -->
+                                    <div>
+                                        <div class="flex justify-between text-xs font-semibold mb-1">
+                                            <span class="text-sage-800 flex items-center gap-1.5"><i class="ph-fill ph-plant text-sage-600"></i> Calm & Grounded</span>
+                                            <span id="prob-calm-text" class="text-slate-700">0%</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-cream-200 rounded-full overflow-hidden">
+                                            <div id="prob-calm-bar" class="h-full bg-sage-600 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bar 2: Stressed / Overwhelmed -->
+                                    <div>
+                                        <div class="flex justify-between text-xs font-semibold mb-1">
+                                            <span class="text-amber-800 flex items-center gap-1.5"><i class="ph-fill ph-waves text-amber-500"></i> Stressed / Overwhelmed</span>
+                                            <span id="prob-stressed-text" class="text-slate-700">0%</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-cream-200 rounded-full overflow-hidden">
+                                            <div id="prob-stressed-bar" class="h-full bg-amber-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bar 3: Low / Heavy Mood -->
+                                    <div>
+                                        <div class="flex justify-between text-xs font-semibold mb-1">
+                                            <span class="text-slateblue-700 flex items-center gap-1.5"><i class="ph-fill ph-cloud-rain text-slateblue-500"></i> Low / Heavy Mood</span>
+                                            <span id="prob-low-text" class="text-slate-700">0%</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-cream-200 rounded-full overflow-hidden">
+                                            <div id="prob-low-bar" class="h-full bg-slateblue-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Personalized Supportive Guidance -->
+                                <div id="tf-guidance-box" class="bg-sage-50 border border-sage-200 rounded-2xl p-4">
+                                    <h4 id="tf-guidance-title" class="font-bold text-sm text-sage-900 mb-1"></h4>
+                                    <p id="tf-guidance-text" class="text-xs sm:text-sm text-slate-700 leading-relaxed mb-3"></p>
+                                    <div id="tf-guidance-action"></div>
+                                </div>
+                            </div>
+
+                            <!-- Privacy & Educational Footer Note -->
+                            <p class="text-[11px] text-slate-500 mt-4 pt-3 border-t border-cream-200 leading-relaxed">
+                                <strong>How it works & Privacy:</strong> TensorFlow.js converts your words into a local bag-of-words tensor inside your browser's memory. Nothing is saved or transmitted over the internet. This tool is for self-reflection only and is not a clinical diagnosis.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1118,6 +1300,299 @@
 
         // Initialize Quiz on load
         renderQuestion();
+
+        // ==========================================
+        // 5. TENSORFLOW.JS MOOD & REFLECTION NEURAL NETWORK
+        // ==========================================
+        let sentimentModel = null;
+        let isModelReady = false;
+
+        // Curated vocabulary for Bag-of-Words feature extraction (66 supportive & emotional keywords)
+        const vocabulary = [
+            // Calm / Positive / Grounded features
+            "calm", "peaceful", "grateful", "thankful", "happy", "good", "great", "better",
+            "relaxed", "hopeful", "confident", "rested", "sleep", "slept", "well", "energized",
+            "supported", "loved", "proud", "excited", "steady", "grounded", "okay", "fine",
+            "manageable", "smiling", "joy", "progress", "healing", "content",
+            // Stressed / Anxious / Overwhelmed features
+            "stressed", "stress", "anxious", "anxiety", "overwhelmed", "worried", "worry",
+            "panic", "nervous", "exams", "exam", "school", "work", "deadline", "pressure",
+            "racing", "cant", "cannot", "focus", "tense", "restless", "afraid", "scared",
+            "busy", "too", "much", "insomnia", "overthinking", "heart", "fast",
+            // Low / Sad / Heavy features
+            "sad", "lonely", "alone", "tired", "exhausted", "heavy", "hopeless", "empty",
+            "numb", "cry", "crying", "depressed", "down", "unmotivated", "worthless",
+            "drained", "hurt", "hurting", "grief", "miss", "isolated", "dark", "lost", "burnt"
+        ];
+
+        // Labeled training dataset: [phrase, classIndex]
+        // Classes: 0 = Calm & Grounded, 1 = Stressed / Overwhelmed, 2 = Low / Heavy Mood
+        const trainingDataset = [
+            // Class 0: Calm & Grounded
+            ["I feel peaceful and grateful for the support around me today", 0],
+            ["Had a good night of sleep and feeling calm and steady", 0],
+            ["Things feel manageable right now and I am hopeful about tomorrow", 0],
+            ["Feeling relaxed after taking a walk outside and breathing", 0],
+            ["I am proud of the progress I have made in healing lately", 0],
+            ["Happy and content spending time with friends who care", 0],
+            ["My mind feels grounded and rested today", 0],
+            ["Even when things get busy I feel okay and supported", 0],
+            ["Grateful for small moments of joy and peace", 0],
+            ["Feeling energized and confident about my day", 0],
+
+            // Class 1: Stressed / Overwhelmed
+            ["I am so overwhelmed with exams and school deadlines right now", 1],
+            ["My heart is racing and I cannot stop overthinking everything", 1],
+            ["Feeling very anxious and nervous about the future", 1],
+            ["Too much pressure at work and I feel tense and restless", 1],
+            ["I am stressed out and worried I cant focus on anything", 1],
+            ["Having trouble sleeping because my mind keeps racing with worry", 1],
+            ["I feel panic building up and everything feels too much", 1],
+            ["Scared and anxious about making the wrong decision", 1],
+            ["So much stress and insomnia lately I feel completely tense", 1],
+            ["Nervous and overwhelmed by all the expectations on me", 1],
+
+            // Class 2: Low / Heavy Mood
+            ["I feel so exhausted heavy and unmotivated to get out of bed", 2],
+            ["Feeling really lonely and isolated like nobody understands", 2],
+            ["I have been crying a lot and feeling empty inside", 2],
+            ["Everything feels dark and hopeless right now", 2],
+            ["I feel completely drained burnt out and emotionally numb", 2],
+            ["So sad and hurting after losing someone close to me", 2],
+            ["I feel down and lost with zero energy left", 2],
+            ["Feeling worthless and alone even when people are around", 2],
+            ["Heavy sadness that will not go away and makes me tired", 2],
+            ["Depressed and drained I just feel empty today", 2]
+        ];
+
+        // Safety keywords to gently surface immediate crisis helplines
+        const severeDistressKeywords = [
+            "suicide", "suicidal", "kill myself", "end my life", "self harm",
+            "self-harm", "hurt myself", "want to die", "no reason to live"
+        ];
+
+        /**
+         * Converts a text string into a binary Bag-of-Words tensor array matching `vocabulary`
+         */
+        function textToBagOfWords(text) {
+            const cleaned = text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
+            const words = cleaned.split(/\s+/).filter(Boolean);
+            const wordSet = new Set(words);
+            return vocabulary.map(vocabWord => (wordSet.has(vocabWord) ? 1 : 0));
+        }
+
+        /**
+         * Builds and trains a lightweight 3-layer TensorFlow.js neural network in the browser
+         */
+        async function trainMentalHealthModel() {
+            const statusIndicator = document.getElementById('tf-status-indicator');
+            const statusText = document.getElementById('tf-status-text');
+            const statusSub = document.getElementById('tf-status-sub');
+            const analyzeBtn = document.getElementById('analyze-reflection-btn');
+            const retrainBtn = document.getElementById('tf-retrain-btn');
+
+            if (typeof tf === 'undefined') {
+                statusIndicator.className = 'w-3 h-3 rounded-full bg-terracotta-500 shrink-0';
+                statusText.textContent = 'TensorFlow.js could not load (Offline mode)';
+                statusSub.textContent = 'Please check your internet connection to load the CDN library.';
+                return;
+            }
+
+            try {
+                isModelReady = false;
+                analyzeBtn.disabled = true;
+                retrainBtn.classList.add('hidden');
+
+                statusIndicator.className = 'w-3 h-3 rounded-full bg-amber-400 animate-pulse shrink-0';
+                statusText.textContent = 'Training TensorFlow.js Neural Network...';
+                statusSub.textContent = 'Building sequential dense layers on your device...';
+
+                // Dispose previous model if retraining
+                if (sentimentModel) {
+                    sentimentModel.dispose();
+                }
+
+                // Prepare training tensors
+                const xsData = trainingDataset.map(item => textToBagOfWords(item[0]));
+                const ysData = trainingDataset.map(item => item[1]);
+
+                const xs = tf.tensor2d(xsData, [xsData.length, vocabulary.length]);
+                const ys = tf.oneHot(tf.tensor1d(ysData, 'int32'), 3);
+
+                // Define Sequential Neural Network Architecture
+                const model = tf.sequential();
+                model.add(tf.layers.dense({
+                    inputShape: [vocabulary.length],
+                    units: 24,
+                    activation: 'relu'
+                }));
+                model.add(tf.layers.dropout({ rate: 0.15 }));
+                model.add(tf.layers.dense({
+                    units: 12,
+                    activation: 'relu'
+                }));
+                model.add(tf.layers.dense({
+                    units: 3,
+                    activation: 'softmax'
+                }));
+
+                model.compile({
+                    optimizer: tf.train.adam(0.03),
+                    loss: 'categoricalCrossentropy',
+                    metrics: ['accuracy']
+                });
+
+                const totalEpochs = 45;
+                await model.fit(xs, ys, {
+                    epochs: totalEpochs,
+                    shuffle: true,
+                    callbacks: {
+                        onEpochEnd: (epoch, logs) => {
+                            if ((epoch + 1) % 15 === 0 || epoch === totalEpochs - 1) {
+                                const accPercent = Math.round((logs.acc || logs.accuracy || 0) * 100);
+                                statusSub.textContent = `Epoch ${epoch + 1}/${totalEpochs} • Training accuracy: ${accPercent}%`;
+                            }
+                        }
+                    }
+                });
+
+                // Clean up training tensors from GPU/WebGL memory
+                xs.dispose();
+                ys.dispose();
+
+                sentimentModel = model;
+                isModelReady = true;
+
+                statusIndicator.className = 'w-3 h-3 rounded-full bg-sage-600 shrink-0';
+                statusText.textContent = 'TensorFlow.js Model Ready (On-Device)';
+                statusSub.textContent = `Trained on ${vocabulary.length} emotional features • 100% browser-based`;
+                analyzeBtn.disabled = false;
+                retrainBtn.classList.remove('hidden');
+            } catch (error) {
+                console.error('TensorFlow training error:', error);
+                statusIndicator.className = 'w-3 h-3 rounded-full bg-terracotta-500 shrink-0';
+                statusText.textContent = 'Model Initialization Notice';
+                statusSub.textContent = 'Unable to initialize WebGL/CPU backend in this browser.';
+            }
+        }
+
+        /**
+         * Fills sample text into the reflection textarea for quick testing
+         */
+        function fillSampleReflection(type) {
+            const input = document.getElementById('reflection-input');
+            const samples = {
+                calm: "I slept well last night and feel peaceful and grateful for my friends today. Things feel steady and manageable.",
+                stressed: "I am feeling really overwhelmed and anxious about my upcoming exams. My mind keeps racing and I cannot focus.",
+                low: "I have been feeling so exhausted, lonely, and heavy lately. It is hard to find energy or motivation."
+            };
+            input.value = samples[type] || "";
+            if (isModelReady) {
+                analyzeReflection();
+            }
+        }
+
+        function clearReflection() {
+            document.getElementById('reflection-input').value = '';
+            document.getElementById('tf-result-output').classList.add('hidden');
+            document.getElementById('tf-result-placeholder').classList.remove('hidden');
+        }
+
+        /**
+         * Runs TensorFlow.js inference on the user's reflection text
+         */
+        async function analyzeReflection() {
+            const inputEl = document.getElementById('reflection-input');
+            const text = inputEl.value.trim();
+
+            if (!text) {
+                inputEl.focus();
+                return;
+            }
+            if (!isModelReady || !sentimentModel) return;
+
+            // Check for severe distress keywords first
+            const lowerText = text.toLowerCase();
+            const hasSevereDistress = severeDistressKeywords.some(kw => lowerText.includes(kw));
+            const crisisAlertEl = document.getElementById('tf-crisis-alert');
+            if (hasSevereDistress) {
+                crisisAlertEl.classList.remove('hidden');
+            } else {
+                crisisAlertEl.classList.add('hidden');
+            }
+
+            // Perform forward pass with tf.tidy to prevent memory leaks
+            const probabilities = tf.tidy(() => {
+                const features = textToBagOfWords(text);
+                const inputTensor = tf.tensor2d([features], [1, vocabulary.length]);
+                const prediction = sentimentModel.predict(inputTensor);
+                return Array.from(prediction.dataSync());
+            });
+
+            const [calmProb, stressedProb, lowProb] = probabilities;
+            const calmPct = Math.round(calmProb * 100);
+            const stressedPct = Math.round(stressedProb * 100);
+            const lowPct = Math.round(lowProb * 100);
+
+            // Update visual probability bars
+            document.getElementById('prob-calm-text').textContent = `${calmPct}%`;
+            document.getElementById('prob-calm-bar').style.width = `${calmPct}%`;
+
+            document.getElementById('prob-stressed-text').textContent = `${stressedPct}%`;
+            document.getElementById('prob-stressed-bar').style.width = `${stressedPct}%`;
+
+            document.getElementById('prob-low-text').textContent = `${lowPct}%`;
+            document.getElementById('prob-low-bar').style.width = `${lowPct}%`;
+
+            // Determine dominant predicted class
+            const maxIdx = probabilities.indexOf(Math.max(...probabilities));
+            const primaryBadge = document.getElementById('tf-primary-badge');
+            const confidenceTag = document.getElementById('tf-confidence-tag');
+            const guidanceBox = document.getElementById('tf-guidance-box');
+            const guidanceTitle = document.getElementById('tf-guidance-title');
+            const guidanceText = document.getElementById('tf-guidance-text');
+            const guidanceAction = document.getElementById('tf-guidance-action');
+
+            if (maxIdx === 0) {
+                primaryBadge.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-sage-100 text-sage-800';
+                primaryBadge.innerHTML = '<i class="ph-fill ph-plant"></i> Calm & Grounded';
+                confidenceTag.textContent = `${calmPct}% model confidence`;
+
+                guidanceBox.className = 'bg-sage-50 border border-sage-200 rounded-2xl p-4';
+                guidanceTitle.className = 'font-bold text-sm text-sage-900 mb-1';
+                guidanceTitle.textContent = 'Nurture This Steady Space';
+                guidanceText.textContent = 'Your reflection carries notes of steadiness and resilience. Taking a moment to notice what is going well—or sharing kindness with someone else—helps reinforce positive mental habits.';
+                guidanceAction.innerHTML = `<a href="#knowledge-quiz" class="inline-flex items-center gap-1.5 text-xs font-bold text-sage-700 hover:text-sage-900 underline">Explore the Mental Health Knowledge Quiz &rarr;</a>`;
+            } else if (maxIdx === 1) {
+                primaryBadge.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-amber-100 text-amber-900';
+                primaryBadge.innerHTML = '<i class="ph-fill ph-waves"></i> Stressed / Overwhelmed';
+                confidenceTag.textContent = `${stressedPct}% model confidence`;
+
+                guidanceBox.className = 'bg-amber-50/80 border border-amber-200 rounded-2xl p-4';
+                guidanceTitle.className = 'font-bold text-sm text-amber-900 mb-1';
+                guidanceTitle.textContent = 'Pause & Slow Down Your Nervous System';
+                guidanceText.textContent = 'It sounds like you are carrying a lot of pressure or worry right now. Stepping away from screens for two minutes to slow your breathing can help quiet your body’s stress response.';
+                guidanceAction.innerHTML = `<a href="#toolkit" class="inline-flex items-center gap-1.5 bg-sage-600 hover:bg-sage-700 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition">Try the 4-7-8 Breathing Circle &darr;</a>`;
+            } else {
+                primaryBadge.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-slateblue-100 text-slateblue-700';
+                primaryBadge.innerHTML = '<i class="ph-fill ph-cloud-rain"></i> Low / Heavy Mood';
+                confidenceTag.textContent = `${lowPct}% model confidence`;
+
+                guidanceBox.className = 'bg-slateblue-50 border border-slateblue-100 rounded-2xl p-4';
+                guidanceTitle.className = 'font-bold text-sm text-slateblue-700 mb-1';
+                guidanceTitle.textContent = 'Be Gentle With Yourself Today';
+                guidanceText.textContent = 'When your mood feels heavy or drained, even small tasks can feel exhausting. You do not have to fix everything today—reaching out to a trusted friend, family member, or counselor can lighten the load.';
+                guidanceAction.innerHTML = `<button onclick="openCrisisModal()" class="inline-flex items-center gap-1.5 bg-slateblue-700 hover:bg-slateblue-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition cursor-pointer">View Caring Support Options</button>`;
+            }
+
+            document.getElementById('tf-result-placeholder').classList.add('hidden');
+            document.getElementById('tf-result-output').classList.remove('hidden');
+        }
+
+        // Train the TensorFlow.js model automatically once the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            trainMentalHealthModel();
+        });
     </script>
 </body>
 </html>
